@@ -1,10 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-public static class Program
+﻿namespace DungeonMaster
 {
-    public static void Main(string[] args)
+    public static class Program
     {
-        Console.WriteLine("Dungeon Master entry point");
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Dungeon Master entry point");
 
+        }
     }
+    
 }
