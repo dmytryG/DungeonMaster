@@ -3,21 +3,21 @@
 [Serializable]
 public class MapObject
 {
-    private MapObjectType type;
+    private MapObjectType _type;
     
     public MapObjectType Type
     {
-        set => type = value;
-        get => type;
+        set => _type = value;
+        get => _type;
     }
 
     public MapObject()
     {
-        type = MapObjectType.Unknown;
+        _type = MapObjectType.Unknown;
     }
 
     public override string ToString()
     {
-        return $"MapObject: {this.GetType()}, type = {type.ToString()}";
+        return $"MapObject: {this.GetType()}, type = {_type.ToString()}";
     }
 }

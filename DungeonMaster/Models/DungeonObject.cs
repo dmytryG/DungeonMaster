@@ -5,16 +5,16 @@ public abstract class DungeonObject
 {
     public V2 Position; // With pivot in upper-left
     public V2 Size;
-    protected int[,] currentDrawmap;
+    protected int[,]? _currentDrawmap;
 
     public ref int[,] GetDrawmap()
     {
-        if (currentDrawmap == null)
+        if (_currentDrawmap == null)
         {
             this.generateDrawmap();
         }
 
-        return ref currentDrawmap;
+        return ref _currentDrawmap!;
     }
 
     protected abstract void generateDrawmap();
