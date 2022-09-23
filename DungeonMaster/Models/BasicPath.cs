@@ -12,4 +12,9 @@ public class BasicPath : DungeonObject
     {
         throw new NotImplementedException();
     }
+
+    public override bool IsCollides(DungeonObject other)
+    {
+        return false;
+    }
 }

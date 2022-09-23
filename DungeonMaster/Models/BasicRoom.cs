@@ -1,4 +1,6 @@
-﻿namespace DungeonMaster.Models;
+﻿using DungeonMaster.Models.MapObjects;
+
+namespace DungeonMaster.Models;
 
 [Serializable]
 public class BasicRoom: DungeonObject
@@ -9,7 +11,26 @@ public class BasicRoom: DungeonObject
 
     protected override void generateDrawmap()
     {
-        throw new NotImplementedException();
+        _currentDrawmap = new MapObjectType[Size.x, Size.y];
+        for (int x = 1; x < Size.x -1; x++)
+        {
+            for (int y = 1; y < Size.y -1; y++)
+            {
+                _currentDrawmap[x, y] = MapObjectType.Floor;
+            }
+        }
+
+        for (int x = 0; x < Size.x; x++)
+        {
+            _currentDrawmap[x, 0] = MapObjectType.Wall;
+            _currentDrawmap[x, Size.y - 1] = MapObjectType.Wall;
+        }
+
+        for (int y = 0; y < Size.y; y++)
+        {
+            _currentDrawmap[0, y] = MapObjectType.Wall;
+            _currentDrawmap[Size.x - 1, y] = MapObjectType.Wall;
+        }
     }
 
     public override string ToString()
@@ -17,23 +38,49 @@ public class BasicRoom: DungeonObject
         return $"{this.GetType()}: position = {Position.ToString()}\n size = {Size.ToString()}";
     }
 
-    public bool IsCollides(BasicRoom other)
+    public override bool IsCollides(DungeonObject other)
     {
+        for (int x = 0; x < other.Size.x; x++)
+        {
+            for (int y = 0; y < other.Size.y; y++)
+            {
+                if (IsIntInRange(other.Position.x + x, Position.x, Position.x + Size.x) &&
+                    IsIntInRange(other.Position.y + y, Position.y, Position.y + Size.y))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
         return (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
                && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
                ||
-               (IsIntInRange(other.Position.x + other.Size.x, Position.x, Position.x + Size.x)
+               (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
                && IsIntInRange(other.Position.y + other.Size.y, Position.y, Position.y + Size.y))
                ||
-               (IsIntInRange(other.Position.x + Size.x, Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y + Size.y, Position.y, Position.y + Size.y))
+               (IsIntInRange(other.Position.x + other.Size.x, Position.x, Position.x + Size.x)
+                && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
+               ||
+               (IsIntInRange(other.Position.x + other.Size.x, Position.x, Position.x + Size.x)
+                && IsIntInRange(other.Position.y + other.Size.y, Position.y, Position.y + Size.y))
+               ||
+               (IsIntInRange(other.Position.x + (other.Size.x/2), Position.x, Position.x + Size.x)
+                && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
                ||
                (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y + Size.y, Position.y, Position.y + Size.y));
+                && IsIntInRange(other.Position.y + (other.Size.y/2), Position.y, Position.y + Size.y))
+               ||
+               (IsIntInRange(other.Position.x + (other.Size.x/2), Position.x, Position.x + Size.x)
+                && IsIntInRange(other.Position.y + (other.Size.y/2), Position.y, Position.y + Size.y));
     }
 
     private bool IsIntInRange(int x, int a, int b)
     {
-        return x >= a && x <= b;
+        if (a > b)
+            (a, b) = (b, a);
+        
+        var res = x >= a && x <= b;
+        return res;
     }
 }

@@ -4,16 +4,20 @@ namespace DungeonMaster.Modules;
 
 public class RoomListFactory
 {
-    public static List<BasicRoom> GetRoomsSet(Configuration configuration)
+    public static List<DungeonObject> GetRoomsSet(Configuration configuration)
     {
         var roomsToBeGenerated = configuration.RoomsCountVariation.Random();
-        List<BasicRoom> result = new List<BasicRoom>();
+        List<DungeonObject> result = new List<DungeonObject>();
 
         for (int i = 0; i < roomsToBeGenerated; i++)
         {
             BasicRoom currentRoom = new BasicRoom(configuration.StartPosition,
-                configuration.RoomSizeVariation.Multiply(new V2(configuration.RoomSizeVariation.Random(),
-                    configuration.RoomSizeVariation.Random())));
+                new V2(configuration.RoomSizeVariation.Random() * configuration.ChunkkSize,
+                    configuration.RoomSizeVariation.Random() * configuration.ChunkkSize));
+
+            V2 roomMaxPosition = new V2(configuration.MapSize.x - currentRoom.Size.x - 1,
+                configuration.MapSize.y - currentRoom.Size.y - 1);
+
             int attemptNumber = 0;
 
             while (true)
@@ -29,8 +33,8 @@ public class RoomListFactory
                         break;
                     }
                 }
-                if (!isCollides && currentRoom.Position.x + currentRoom.Size.x <= configuration.MapSize.x &&
-                    currentRoom.Position.y + currentRoom.Size.y <= configuration.MapSize.y)
+
+                if (!isCollides)
                 {
                     // If room can be created
                     result.Add(currentRoom);
@@ -39,7 +43,7 @@ public class RoomListFactory
                 else
                 {
                     // If room can't be created, rebuild it
-                    currentRoom.Position = new V2(configuration.MapSize.Random(), configuration.MapSize.Random());
+                    currentRoom.Position = roomMaxPosition.RandomInVector();
                 }
 
                 if (attemptNumber > configuration.MaxAttemptsToCreateRoom)

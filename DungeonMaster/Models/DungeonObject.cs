@@ -1,13 +1,15 @@
-﻿namespace DungeonMaster.Models;
+﻿using DungeonMaster.Models.MapObjects;
+
+namespace DungeonMaster.Models;
 
 [Serializable]
 public abstract class DungeonObject
 {
     public V2 Position; // With pivot in upper-left
     public V2 Size;
-    protected int[,]? _currentDrawmap;
+    protected MapObjectType[,]? _currentDrawmap;
 
-    public ref int[,] GetDrawmap()
+    public ref MapObjectType[,] GetDrawmap()
     {
         if (_currentDrawmap == null)
         {
@@ -33,4 +35,6 @@ public abstract class DungeonObject
     {
         return $"{this.GetType()}: position = {Position.ToString()}\n size = {Size.ToString()}";
     }
+
+    public abstract bool IsCollides(DungeonObject other);
 }

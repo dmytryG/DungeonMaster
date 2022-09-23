@@ -1,12 +1,12 @@
-﻿namespace DungeonMaster.Models;
+﻿using DungeonMaster.Helpers;
+
+namespace DungeonMaster.Models;
 
 [Serializable]
 public class V2
 {
     public int x;
     public int y;
-
-    protected static Random? _random;
 
     public V2(int x, int y)
     {
@@ -27,16 +27,21 @@ public class V2
 
     public int Random()
     {
-        if (_random == null)
-        {
-            _random = new Random();
-        }
+        return RandomInt.GetRandom(x, y);
+    }
 
-        return _random.Next(x, y + 1);
+    public V2 RandomInVector(int offset = 0)
+    {
+        return new V2(RandomInt.GetRandom(offset, x), RandomInt.GetRandom(offset, y));
     }
 
     public V2 Multiply(V2 multiplyer)
     {
         return new V2(this.x * multiplyer.x, this.y * multiplyer.y);
+    }
+    
+    public V2 Multiply(int multiplyer)
+    {
+        return new V2(this.x * multiplyer, this.y * multiplyer);
     }
 }
