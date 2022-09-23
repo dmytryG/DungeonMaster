@@ -5,6 +5,8 @@ public class BasicPath : DungeonObject
 {
     public BasicPath(V2 pointA, V2 pointB)
     {
+        this.Size = pointB.Delta(pointA);
+        this.Position = pointA;
         
     }
 

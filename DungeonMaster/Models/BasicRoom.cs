@@ -53,26 +53,6 @@ public class BasicRoom: DungeonObject
         }
 
         return false;
-        return (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
-               && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
-               && IsIntInRange(other.Position.y + other.Size.y, Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x + other.Size.x, Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x + other.Size.x, Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y + other.Size.y, Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x + (other.Size.x/2), Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y, Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x, Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y + (other.Size.y/2), Position.y, Position.y + Size.y))
-               ||
-               (IsIntInRange(other.Position.x + (other.Size.x/2), Position.x, Position.x + Size.x)
-                && IsIntInRange(other.Position.y + (other.Size.y/2), Position.y, Position.y + Size.y));
     }
 
     private bool IsIntInRange(int x, int a, int b)
@@ -82,5 +62,20 @@ public class BasicRoom: DungeonObject
         
         var res = x >= a && x <= b;
         return res;
+    }
+
+    
+    public new List<V2> GetConnections()
+    {
+        if (_connections == null)
+        {
+            _connections = new List<V2>();
+            _connections.Add(new V2(0, Size.y/2));
+            _connections.Add(new V2(Size.x, Size.y/2));
+            _connections.Add(new V2(Size.x / 2, 0));
+            _connections.Add(new V2(Size.x / 2, Size.y));
+        }
+
+        return _connections;
     }
 }
