@@ -9,8 +9,6 @@ public class BasicPath : DungeonObject
     private V2 _pointA;
     private V2 _pointB;
     
-    private V2 _M; // Direction vector
-    
     public BasicPath(V2 pointA, V2 pointB)
     {
         this.Size = pointB.Delta(pointA);
@@ -33,8 +31,6 @@ public class BasicPath : DungeonObject
 
         _pointA = pointA;
         _pointB = pointB;
-        
-        _M = new V2(pointB.x - pointA.x, pointB.y - pointA.y);
     }
 
     protected override void generateDrawmap()
