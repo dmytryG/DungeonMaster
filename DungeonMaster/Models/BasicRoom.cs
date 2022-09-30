@@ -1,4 +1,5 @@
-﻿using DungeonMaster.Models.MapObjects;
+﻿using DungeonMaster.Helpers;
+using DungeonMaster.Models.MapObjects;
 
 namespace DungeonMaster.Models;
 
@@ -44,8 +45,8 @@ public class BasicRoom: DungeonObject
         {
             for (int y = 0; y < other.Size.y; y++)
             {
-                if (IsIntInRange(other.Position.x + x, Position.x, Position.x + Size.x) &&
-                    IsIntInRange(other.Position.y + y, Position.y, Position.y + Size.y))
+                if (IntUtils.IsIntInRange(other.Position.x + x, Position.x, Position.x + Size.x) &&
+                    IntUtils.IsIntInRange(other.Position.y + y, Position.y, Position.y + Size.y))
                 {
                     return true;
                 }
@@ -55,17 +56,8 @@ public class BasicRoom: DungeonObject
         return false;
     }
 
-    private bool IsIntInRange(int x, int a, int b)
-    {
-        if (a > b)
-            (a, b) = (b, a);
-        
-        var res = x >= a && x <= b;
-        return res;
-    }
 
-    
-    public new List<V2> GetConnections()
+    public override List<V2> GetConnections()
     {
         if (_connections == null)
         {

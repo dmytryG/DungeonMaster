@@ -5,4 +5,6 @@ public enum MapObjectType
     Unknown,
     Wall,
     Floor,
+    MapPointA,
+    MapPointB,
 }

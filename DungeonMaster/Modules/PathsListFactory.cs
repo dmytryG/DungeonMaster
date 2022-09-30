@@ -5,7 +5,7 @@ namespace DungeonMaster.Modules;
 
 public class PathsListFactory
 {
-    public static List<DungeonObject> GetRoomsSet(Configuration configuration, List<BasicRoom> rooms)
+    public static List<DungeonObject> GetPathsSet(Configuration configuration, List<DungeonObject> rooms)
     {
         List<DungeonObject> paths = new List<DungeonObject>();
         DungeonObject currentRoom = rooms[0];

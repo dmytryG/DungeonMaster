@@ -11,12 +11,17 @@ namespace DungeonMaster
             Console.WriteLine("Dungeon Master entry point");
             Console.Title = "Processing map...";
             var configuration = new Configuration();
+            
             List<DungeonObject> rooms = RoomListFactory.GetRoomsSet(configuration);
             
-            
-            
             MapObjectType[,] collectedMap = MapCollectorFactory.GetDrawmap(configuration, rooms);
+            
+            List<DungeonObject> paths = PathsListFactory.GetPathsSet(configuration, rooms);
+
+            collectedMap = MapCollectorFactory.AppendDrawmap(configuration, collectedMap, paths);
+
             MapDebugDrawer.DrawMap(configuration, collectedMap);
+
 
             Console.ReadKey();
         }

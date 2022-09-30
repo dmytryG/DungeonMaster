@@ -10,7 +10,7 @@ public abstract class DungeonObject
     protected MapObjectType[,]? _currentDrawmap;
     protected List<V2>? _connections;
 
-    public List<V2> GetConnections() // Returns relative positions of corridor connections
+    public virtual List<V2> GetConnections() // Returns relative positions of corridor connections
     {
         if (_connections == null)
             _connections = new List<V2>();

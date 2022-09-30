@@ -23,6 +23,12 @@ public class MapDebugDrawer
                     case MapObjectType.Wall:
                         Console.Write("░");
                         break;
+                    case MapObjectType.MapPointA:
+                        Console.Write("A");
+                        break;
+                    case MapObjectType.MapPointB:
+                        Console.Write("B");
+                        break;
                 }
             }
             Console.Write("\n");
