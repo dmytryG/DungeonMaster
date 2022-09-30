@@ -14,17 +14,22 @@ public class BasicPath : DungeonObject
     public BasicPath(V2 pointA, V2 pointB)
     {
         this.Size = pointB.Delta(pointA);
+        
         this.Position = new V2();
 
         if (pointB.x < pointA.x)
             (pointA, pointB) = (pointB, pointA);
-
+        
         this.Position.x = pointA.x;
 
         if (pointB.y < pointA.y)
+        {
             this.Position.y = pointB.y;
+        }
         else
-            this.Position.y = pointB.y;
+        {
+            this.Position.y = pointA.y;
+        }
 
         _pointA = pointA;
         _pointB = pointB;
@@ -35,19 +40,17 @@ public class BasicPath : DungeonObject
     protected override void generateDrawmap()
     {
         _currentDrawmap = new MapObjectType[Size.x, Size.y];
-        float a = _pointB.y - _pointA.y;
-        float d = _pointA.x * (_pointA.y - _pointB.y) + _pointA.y * (_pointB.x - _pointA.x);
-        float c = _pointB.x - _pointA.x;
+        float k = (float)(_pointB.y - _pointA.y) / (_pointB.x - _pointA.x);
 
         var yPos = (int x) =>
         {
-            return (int)((x * a + d)/c);
+            return (int)(x * k);
         };
 
         for (int x = 0; x < Size.x; x++)
         {
             int y = yPos(x);
-            if (IntUtils.IsIntInRange(y, 0, Size.y - 1))
+            if (IntUtils.IsIntInRange(y, 0, Size.y))
             {
                 if (x == 0)
                     _currentDrawmap[x, y] = MapObjectType.MapPointA;

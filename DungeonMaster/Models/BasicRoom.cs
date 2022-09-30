@@ -64,7 +64,7 @@ public class BasicRoom: DungeonObject
             _connections = new List<V2>();
             _connections.Add(new V2(0, Size.y/2));
             _connections.Add(new V2(Size.x, Size.y/2));
-            _connections.Add(new V2(Size.x / 2, 0));
+            _connections.Add(new V2(Size.x / 2, 1));
             _connections.Add(new V2(Size.x / 2, Size.y));
         }
 
