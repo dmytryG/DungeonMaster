@@ -23,7 +23,7 @@ public class BasicPath : DungeonObject
 
         // Position.x--;
         // Position.y--;
-        Size = new V2(farestX - Position.x + 1, farestY - Position.y + 1);
+        Size = new V2(farestX - Position.x, farestY - Position.y);
 
         _pointA = pointA;
         _pointB = pointB;
