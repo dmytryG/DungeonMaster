@@ -10,6 +10,9 @@ namespace DungeonMaster
         {
             Console.WriteLine("Dungeon Master entry point");
             Console.Title = "Processing map...";
+            
+            int startedAt = DateTime.Now.Millisecond;
+            
             var configuration = new Configuration();
             
             List<DungeonObject> rooms = RoomListFactory.GetRoomsSet(configuration);
@@ -21,6 +24,8 @@ namespace DungeonMaster
             collectedMap = MapCollectorFactory.AppendDrawmap(configuration, collectedMap, paths);
 
             MapDebugDrawer.DrawMap(configuration, collectedMap);
+            
+            Console.WriteLine($"Dungeon completed in {DateTime.Now.Millisecond - startedAt} milliseconds");
 
 
             // Console.ReadKey();

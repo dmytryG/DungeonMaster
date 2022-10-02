@@ -13,25 +13,25 @@ public class BasicRoom: DungeonObject
     protected override void generateDrawmap()
     {
         _currentDrawmap = new MapObjectType[Size.x, Size.y];
-        for (int x = 1; x < Size.x -1; x++)
+        for (int x = 0; x < Size.x; x++)
         {
-            for (int y = 1; y < Size.y -1; y++)
+            for (int y = 0; y < Size.y; y++)
             {
                 _currentDrawmap[x, y] = MapObjectType.Floor;
             }
         }
 
-        for (int x = 0; x < Size.x; x++)
-        {
-            _currentDrawmap[x, 0] = MapObjectType.Wall;
-            _currentDrawmap[x, Size.y - 1] = MapObjectType.Wall;
-        }
-
-        for (int y = 0; y < Size.y; y++)
-        {
-            _currentDrawmap[0, y] = MapObjectType.Wall;
-            _currentDrawmap[Size.x - 1, y] = MapObjectType.Wall;
-        }
+        // for (int x = 0; x < Size.x; x++)
+        // {
+        //     _currentDrawmap[x, 0] = MapObjectType.Wall;
+        //     _currentDrawmap[x, Size.y - 1] = MapObjectType.Wall;
+        // }
+        //
+        // for (int y = 0; y < Size.y; y++)
+        // {
+        //     _currentDrawmap[0, y] = MapObjectType.Wall;
+        //     _currentDrawmap[Size.x - 1, y] = MapObjectType.Wall;
+        // }
     }
 
     public override string ToString()

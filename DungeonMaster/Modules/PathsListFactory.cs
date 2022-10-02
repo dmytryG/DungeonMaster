@@ -15,7 +15,7 @@ public class PathsListFactory
             bool isPathFound = false;
             foreach (var anotherRoom in rooms)
             {
-                if (currentRoom == anotherRoom || alreadyFound.Contains(anotherRoom))
+                if (currentRoom == anotherRoom || alreadyFound.Contains(anotherRoom) || alreadyFound.Contains(currentRoom))
                     continue;
 
                 foreach (var currentConnection in currentRoom.GetConnections())
@@ -29,8 +29,6 @@ public class PathsListFactory
                         {
                             if (path.IsCollides(isCollidesWithRoom))
                             {
-                                // Console.WriteLine("Collides");
-                                // isPathFailed = true;
                                 break;
                             }
                         }
