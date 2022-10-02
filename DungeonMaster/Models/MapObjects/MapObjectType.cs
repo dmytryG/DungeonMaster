@@ -7,4 +7,5 @@ public enum MapObjectType
     Floor,
     MapPointA,
     MapPointB,
+    MapTmpObj,
 }

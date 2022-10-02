@@ -11,23 +11,19 @@ public class BasicPath : DungeonObject
     
     public BasicPath(V2 pointA, V2 pointB)
     {
-        this.Size = pointB.Delta(pointA);
-        
+        // this.Size = pointB.Delta(pointA);
+
         this.Position = new V2();
 
-        if (pointB.x < pointA.x)
-            (pointA, pointB) = (pointB, pointA);
+        Position.x = pointA.x <= pointB.x ? pointA.x : pointB.x;
+        Position.y = pointA.y <= pointB.y ? pointA.y : pointB.y;
         
-        this.Position.x = pointA.x;
+        var farestX = pointA.x > pointB.x ? pointA.x : pointB.x;
+        var farestY = pointA.y > pointB.y ? pointA.y : pointB.y;
 
-        if (pointB.y < pointA.y)
-        {
-            this.Position.y = pointB.y;
-        }
-        else
-        {
-            this.Position.y = pointA.y;
-        }
+        // Position.x--;
+        // Position.y--;
+        Size = new V2(farestX - Position.x + 1, farestY - Position.y + 1);
 
         _pointA = pointA;
         _pointB = pointB;
@@ -36,26 +32,49 @@ public class BasicPath : DungeonObject
     protected override void generateDrawmap()
     {
         _currentDrawmap = new MapObjectType[Size.x, Size.y];
-        float k = (float)(_pointB.y - _pointA.y) / (_pointB.x - _pointA.x);
+        Console.WriteLine($"Size: {Size}");
 
-        var yPos = (int x) =>
+        if (_pointA.y <= _pointB.y)
         {
-            return (int)(x * k);
-        };
-
-        for (int x = 0; x < Size.x; x++)
-        {
-            int y = yPos(x);
-            if (IntUtils.IsIntInRange(y, 0, Size.y))
+            for (int x = 0; x < Size.x; x++)
             {
-                if (x == 0)
-                    _currentDrawmap[x, y] = MapObjectType.MapPointA;
-                else if (x == Size.x - 1)
-                    _currentDrawmap[x, y] = MapObjectType.MapPointB;
-                else
-                    _currentDrawmap[x, y] = MapObjectType.Floor;
+                _currentDrawmap[x, 0] = MapObjectType.Floor;
             }
         }
+        else
+        {
+            for (int x = 0; x < Size.x; x++)
+            {
+                _currentDrawmap[x, Size.y - 1] = MapObjectType.Floor;
+            }
+        }
+
+        if (_pointA.x <= _pointB.x)
+        {
+            for (int y = 0; y < Size.y; y++)
+            {
+                _currentDrawmap[Size.x - 1, y] = MapObjectType.Floor;
+            }
+        }
+        else
+        {
+            for (int y = 0; y < Size.y; y++)
+            {
+                _currentDrawmap[0, y] = MapObjectType.Floor;
+            }
+        }
+
+        //
+        // _currentDrawmap[0, 0] = MapObjectType.MapPointA;
+        // _currentDrawmap[Size.x - 1, Size.y - 1] = MapObjectType.MapPointB;
+        
+        
+        // int xMoveK = _pointA.x < _pointB.x ? 1 : -1;
+        // int yMoveK = _pointA.y < _pointB.y ? 1 : -1;
+        //
+        // int localX = _pointA.x - _pointA.x;
+        // int localY = _pointA.y - _pointA.y <= _pointB.y ? _pointA.y : _pointB.y;
+
     }
 
     public override bool IsCollides(DungeonObject other)

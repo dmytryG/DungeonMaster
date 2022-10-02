@@ -29,6 +29,9 @@ public class MapDebugDrawer
                     case MapObjectType.MapPointB:
                         Console.Write("B");
                         break;
+                    case MapObjectType.MapTmpObj:
+                        Console.Write("#");
+                        break;
                 }
             }
             Console.Write("\n");
