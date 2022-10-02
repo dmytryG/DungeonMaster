@@ -8,26 +8,41 @@ public class PathsListFactory
     public static List<DungeonObject> GetPathsSet(Configuration configuration, List<DungeonObject> rooms)
     {
         List<DungeonObject> paths = new List<DungeonObject>();
-        DungeonObject currentRoom = rooms[0];
-        
+        List<DungeonObject> alreadyFound = new List<DungeonObject>();
 
-        for (int i = 1; i < rooms.Count; i++)
+        foreach (var currentRoom in rooms)
         {
-            
-            var currentRandomPath = currentRoom.GetConnections()[RandomInt.GetRandom(0, currentRoom.GetConnections().Count - 1)];
-            var nextRoom = rooms[i];
-            var nextRandomPath = nextRoom.GetConnections()[RandomInt.GetRandom(0, nextRoom.GetConnections().Count - 1)];
-
-            DungeonObject path = new BasicPath(currentRandomPath.Sum(currentRoom.Position) , nextRandomPath.Sum(nextRoom.Position));
-
-            if (path.IsCollides(currentRoom) || path.IsCollides(nextRoom))
+            bool isPathFound = false;
+            foreach (var anotherRoom in rooms)
             {
-                Console.WriteLine("It collides");
-            }
-            
-            paths.Add(path);
+                if (currentRoom == anotherRoom || alreadyFound.Contains(anotherRoom))
+                    continue;
 
-            currentRoom = nextRoom;
+                foreach (var currentConnection in currentRoom.GetConnections())
+                {
+                    foreach (var anotherConnection in anotherRoom.GetConnections())
+                    {
+                        DungeonObject path = new BasicPath(currentConnection.Sum(currentRoom.Position) , anotherConnection.Sum(anotherRoom.Position));
+
+                        foreach (var isCollidesWithRoom in rooms)
+                        {
+                            if (path.IsCollides(isCollidesWithRoom))
+                            {
+                                Console.WriteLine("Collides");
+                                continue;
+                            }
+                        }
+                        paths.Add(path);
+                        alreadyFound.Add(currentRoom);
+                        isPathFound = true;
+                        break;
+                    }
+                    if (isPathFound)
+                        break;
+                }
+                if (isPathFound)
+                    break;
+            }
         }
 
         return paths;

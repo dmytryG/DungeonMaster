@@ -59,31 +59,4 @@ public class BasicPath : DungeonObject
             }
         }
     }
-    
-    // public override bool IsCollides(DungeonObject other)
-    // {
-    //     var thisDrawmap = GetDrawmap();
-    //     var otherDrawmap = other.GetDrawmap();
-    //     
-    //     for (int x = 1; x < Size.x - 1; x++)
-    //     {
-    //         for (int y = 1; y < Size.y - 1; y++)
-    //         {
-    //             int otherRelX = (x + Position.x) - other.Position.x;
-    //             int otherRelY = (y + Position.y) - other.Position.y;
-    //
-    //             if (IntUtils.IsIntInRange(otherRelX, 0, other.Size.x) &&
-    //                 IntUtils.IsIntInRange(otherRelY, 0, other.Size.y)
-    //                )
-    //             {
-    //                 if (thisDrawmap[x, y] != MapObjectType.Unknown &&
-    //                     otherDrawmap[otherRelX, otherRelY] != MapObjectType.Unknown)
-    //                 {
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
 }
