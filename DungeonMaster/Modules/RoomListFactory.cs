@@ -46,6 +46,11 @@ public class RoomListFactory
                     currentRoom.Position = roomMaxPosition.RandomInVector();
                 }
 
+                if (attemptNumber % 50 == 0 && configuration.DebugLog)
+                {
+                    Console.WriteLine($"Room generation failed with attemp {attemptNumber}. Trying again...");
+                }
+
                 if (attemptNumber > configuration.MaxAttemptsToCreateRoom)
                 {
                     throw new Exception("Can't create room, it's overcrowded");
