@@ -11,8 +11,6 @@ public class BasicPath : DungeonObject
     
     public BasicPath(V2 pointA, V2 pointB)
     {
-        // this.Size = pointB.Delta(pointA);
-
         this.Position = new V2();
 
         Position.x = pointA.x <= pointB.x ? pointA.x : pointB.x;
@@ -20,10 +18,8 @@ public class BasicPath : DungeonObject
         
         var farestX = pointA.x > pointB.x ? pointA.x : pointB.x;
         var farestY = pointA.y > pointB.y ? pointA.y : pointB.y;
-
-        // Position.x--;
-        // Position.y--;
-        Size = new V2(farestX - Position.x, farestY - Position.y);
+        
+        Size = new V2(farestX - Position.x + 1, farestY - Position.y + 1);
 
         _pointA = pointA;
         _pointB = pointB;
@@ -32,7 +28,6 @@ public class BasicPath : DungeonObject
     protected override void generateDrawmap()
     {
         _currentDrawmap = new MapObjectType[Size.x, Size.y];
-        Console.WriteLine($"Size: {Size}");
 
         if (_pointA.y <= _pointB.y)
         {
@@ -63,22 +58,32 @@ public class BasicPath : DungeonObject
                 _currentDrawmap[0, y] = MapObjectType.Floor;
             }
         }
-
-        //
-        // _currentDrawmap[0, 0] = MapObjectType.MapPointA;
-        // _currentDrawmap[Size.x - 1, Size.y - 1] = MapObjectType.MapPointB;
-        
-        
-        // int xMoveK = _pointA.x < _pointB.x ? 1 : -1;
-        // int yMoveK = _pointA.y < _pointB.y ? 1 : -1;
-        //
-        // int localX = _pointA.x - _pointA.x;
-        // int localY = _pointA.y - _pointA.y <= _pointB.y ? _pointA.y : _pointB.y;
-
     }
-
-    public override bool IsCollides(DungeonObject other)
-    {
-        return false;
-    }
+    
+    // public override bool IsCollides(DungeonObject other)
+    // {
+    //     var thisDrawmap = GetDrawmap();
+    //     var otherDrawmap = other.GetDrawmap();
+    //     
+    //     for (int x = 1; x < Size.x - 1; x++)
+    //     {
+    //         for (int y = 1; y < Size.y - 1; y++)
+    //         {
+    //             int otherRelX = (x + Position.x) - other.Position.x;
+    //             int otherRelY = (y + Position.y) - other.Position.y;
+    //
+    //             if (IntUtils.IsIntInRange(otherRelX, 0, other.Size.x) &&
+    //                 IntUtils.IsIntInRange(otherRelY, 0, other.Size.y)
+    //                )
+    //             {
+    //                 if (thisDrawmap[x, y] != MapObjectType.Unknown &&
+    //                     otherDrawmap[otherRelX, otherRelY] != MapObjectType.Unknown)
+    //                 {
+    //                     return true;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 }

@@ -52,7 +52,6 @@ public class BasicRoom: DungeonObject
                 }
             }
         }
-
         return false;
     }
 
