@@ -58,9 +58,9 @@ public abstract class DungeonObject
                 int otherRelY = (y + Position.y) - other.Position.y;
 
                 if (IntUtils.IsIntInRange(otherRelX, 0, other.Size.x - 1) &&
-                    IntUtils.IsIntInRange(otherRelY, 0, other.Size.y - 1) 
-                    // IntUtils.IsIntInRange(x, 0, Size.x) &&
-                    // IntUtils.IsIntInRange(y, 0, Size.y)
+                    IntUtils.IsIntInRange(otherRelY, 0, other.Size.y - 1) &&
+                    IntUtils.IsIntInRange(x, 0, Size.x) &&
+                    IntUtils.IsIntInRange(y, 0, Size.y)
                    )
                 {
                     if (thisDrawmap[x, y] != MapObjectType.Unknown &&

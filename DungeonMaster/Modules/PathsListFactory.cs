@@ -22,16 +22,21 @@ public class PathsListFactory
                 {
                     foreach (var anotherConnection in anotherRoom.GetConnections())
                     {
+                        bool isPathFailed = false;
                         DungeonObject path = new BasicPath(currentConnection.Sum(currentRoom.Position) , anotherConnection.Sum(anotherRoom.Position));
 
                         foreach (var isCollidesWithRoom in rooms)
                         {
                             if (path.IsCollides(isCollidesWithRoom))
                             {
-                                Console.WriteLine("Collides");
-                                continue;
+                                // Console.WriteLine("Collides");
+                                // isPathFailed = true;
+                                break;
                             }
                         }
+                        if (isPathFailed)
+                            break;
+                        
                         paths.Add(path);
                         alreadyFound.Add(currentRoom);
                         isPathFound = true;

@@ -23,7 +23,7 @@ namespace DungeonMaster
             MapDebugDrawer.DrawMap(configuration, collectedMap);
 
 
-            Console.ReadKey();
+            // Console.ReadKey();
         }
     }
     
