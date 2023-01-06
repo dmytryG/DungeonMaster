@@ -1,22 +1,25 @@
-﻿namespace DungeonMaster.Helpers;
+﻿using System;
 
-public class RandomInt
+namespace DungeonMaster.Helpers
 {
-    protected static Random? _random;
-
-    public static int GetRandom(int x, int y)
+    public class RandomInt
     {
-        if (_random == null)
-        {
-            _random = new Random();
-        }
+        protected static Random? _random;
 
-        if (x > y)
+        public static int GetRandom(int x, int y)
         {
-            (x, y) = (y, x);
+            if (_random == null)
+            {
+                _random = new Random();
+            }
+
+            if (x > y)
+            {
+                (x, y) = (y, x);
+            }
+
+            var res = _random.Next(x, y + 1);
+            return res;
         }
-        var res = _random.Next(x, y + 1);
-        return res;
     }
-    
 }

@@ -1,6 +1,8 @@
 ﻿using DungeonMaster.Models;
 using DungeonMaster.Models.MapObjects;
 using DungeonMaster.Modules;
+using System;
+using System.Collections.Generic;
 
 namespace DungeonMaster
 {

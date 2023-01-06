@@ -1,13 +1,14 @@
-﻿namespace DungeonMaster.Helpers;
-
-public class IntUtils
+﻿namespace DungeonMaster.Helpers
 {
-    public static bool IsIntInRange(int x, int a, int b)
+    public class IntUtils
     {
-        if (a > b)
-            (a, b) = (b, a);
-        
-        var res = x >= a && x <= b;
-        return res;
+        public static bool IsIntInRange(int x, int a, int b)
+        {
+            if (a > b)
+                (a, b) = (b, a);
+
+            var res = x >= a && x <= b;
+            return res;
+        }
     }
 }

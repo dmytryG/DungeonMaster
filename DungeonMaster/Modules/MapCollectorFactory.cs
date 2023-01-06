@@ -1,52 +1,54 @@
-﻿using DungeonMaster.Models;
+﻿using System.Collections.Generic;
+using DungeonMaster.Models;
 using DungeonMaster.Models.MapObjects;
 
-namespace DungeonMaster.Modules;
-
-public class MapCollectorFactory
+namespace DungeonMaster.Modules
 {
-    public static MapObjectType[,] GetDrawmap(Configuration configuration, List<DungeonObject> dungeonObjects)
+    public class MapCollectorFactory
     {
-        MapObjectType[,] currentMap = new MapObjectType[configuration.MapSize.x, configuration.MapSize.y];
-
-        foreach (var dungeonObject in dungeonObjects)
+        public static MapObjectType[,] GetDrawmap(Configuration configuration, List<DungeonObject> dungeonObjects)
         {
-            MapObjectType[,] dungeonObjectDrawmap = dungeonObject.GetDrawmap();
+            MapObjectType[,] currentMap = new MapObjectType[configuration.MapSize.x, configuration.MapSize.y];
 
-            for (int x = 0; x < dungeonObject.Size.x; x++)
+            foreach (var dungeonObject in dungeonObjects)
             {
-                for (int y = 0; y < dungeonObject.Size.y; y++)
+                MapObjectType[,] dungeonObjectDrawmap = dungeonObject.GetDrawmap();
+
+                for (int x = 0; x < dungeonObject.Size.x; x++)
                 {
-                    if (dungeonObjectDrawmap[x, y] != MapObjectType.Unknown)
-                        currentMap[x + dungeonObject.Position.x, y + dungeonObject.Position.y] =
-                            dungeonObjectDrawmap[x, y];
+                    for (int y = 0; y < dungeonObject.Size.y; y++)
+                    {
+                        if (dungeonObjectDrawmap[x, y] != MapObjectType.Unknown)
+                            currentMap[x + dungeonObject.Position.x, y + dungeonObject.Position.y] =
+                                dungeonObjectDrawmap[x, y];
+                    }
                 }
             }
+
+            return currentMap;
         }
 
-        return currentMap;
-    }
-
-    public static MapObjectType[,] AppendDrawmap(Configuration configuration, MapObjectType[,] currentMap,
-        List<DungeonObject> dungeonObjects)
-    {
-        foreach (var dungeonObject in dungeonObjects)
+        public static MapObjectType[,] AppendDrawmap(Configuration configuration, MapObjectType[,] currentMap,
+            List<DungeonObject> dungeonObjects)
         {
-            MapObjectType[,] dungeonObjectDrawmap = dungeonObject.GetDrawmap();
-
-            for (int x = 0; x < dungeonObject.Size.x; x++)
+            foreach (var dungeonObject in dungeonObjects)
             {
-                for (int y = 0; y < dungeonObject.Size.y; y++)
+                MapObjectType[,] dungeonObjectDrawmap = dungeonObject.GetDrawmap();
+
+                for (int x = 0; x < dungeonObject.Size.x; x++)
                 {
-                    if (x + dungeonObject.Position.x < configuration.MapSize.x &&
-                        y + dungeonObject.Position.y < configuration.MapSize.y &&
-                        dungeonObjectDrawmap[x, y] != MapObjectType.Unknown)
-                        currentMap[x + dungeonObject.Position.x, y + dungeonObject.Position.y] =
-                            dungeonObjectDrawmap[x, y];
+                    for (int y = 0; y < dungeonObject.Size.y; y++)
+                    {
+                        if (x + dungeonObject.Position.x < configuration.MapSize.x &&
+                            y + dungeonObject.Position.y < configuration.MapSize.y &&
+                            dungeonObjectDrawmap[x, y] != MapObjectType.Unknown)
+                            currentMap[x + dungeonObject.Position.x, y + dungeonObject.Position.y] =
+                                dungeonObjectDrawmap[x, y];
+                    }
                 }
             }
-        }
 
-        return currentMap;
+            return currentMap;
+        }
     }
 }

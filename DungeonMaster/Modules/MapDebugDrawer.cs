@@ -1,40 +1,43 @@
-﻿using DungeonMaster.Models;
+﻿using System;
+using DungeonMaster.Models;
 using DungeonMaster.Models.MapObjects;
 
-namespace DungeonMaster.Modules;
-
-public class MapDebugDrawer
+namespace DungeonMaster.Modules
 {
-    public static void DrawMap(Configuration configuration, MapObjectType[,] map)
+    public class MapDebugDrawer
     {
-        for (int x = 0; x < configuration.MapSize.x; x++)
+        public static void DrawMap(Configuration configuration, MapObjectType[,] map)
         {
-            for (int y = 0; y < configuration.MapSize.y; y++)
+            for (int x = 0; x < configuration.MapSize.x; x++)
             {
-                // Draw some map
-                switch (map[x, y])
+                for (int y = 0; y < configuration.MapSize.y; y++)
                 {
-                    case MapObjectType.Unknown:
-                        Console.Write(" ");
-                        break;
-                    case MapObjectType.Floor:
-                        Console.Write("▓");
-                        break;
-                    case MapObjectType.Wall:
-                        Console.Write("░");
-                        break;
-                    case MapObjectType.MapPointA:
-                        Console.Write("A");
-                        break;
-                    case MapObjectType.MapPointB:
-                        Console.Write("B");
-                        break;
-                    case MapObjectType.MapTmpObj:
-                        Console.Write("#");
-                        break;
+                    // Draw some map
+                    switch (map[x, y])
+                    {
+                        case MapObjectType.Unknown:
+                            Console.Write(" ");
+                            break;
+                        case MapObjectType.Floor:
+                            Console.Write("▓");
+                            break;
+                        case MapObjectType.Wall:
+                            Console.Write("░");
+                            break;
+                        case MapObjectType.MapPointA:
+                            Console.Write("A");
+                            break;
+                        case MapObjectType.MapPointB:
+                            Console.Write("B");
+                            break;
+                        case MapObjectType.MapTmpObj:
+                            Console.Write("#");
+                            break;
+                    }
                 }
+
+                Console.Write("\n");
             }
-            Console.Write("\n");
         }
     }
 }

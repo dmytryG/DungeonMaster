@@ -1,23 +1,27 @@
-﻿namespace DungeonMaster.Models.MapObjects;
+﻿using System;
 
-[Serializable]
-public class MapObject
+namespace DungeonMaster.Models.MapObjects
 {
-    private MapObjectType _type;
-    
-    public MapObjectType Type
+    [Serializable]
+    public class MapObject
     {
-        set => _type = value;
-        get => _type;
-    }
+        private MapObjectType _type;
 
-    public MapObject()
-    {
-        _type = MapObjectType.Unknown;
-    }
+        public MapObjectType Type
+        {
+            set => _type = value;
+            get => _type;
+        }
 
-    public override string ToString()
-    {
-        return $"MapObject: {this.GetType()}, type = {_type.ToString()}";
+        public MapObject()
+        {
+            _type = MapObjectType.Unknown;
+        }
+
+        public override string ToString()
+        {
+            return $"MapObject: {this.GetType()}, type = {_type.ToString()}";
+        }
     }
 }
+

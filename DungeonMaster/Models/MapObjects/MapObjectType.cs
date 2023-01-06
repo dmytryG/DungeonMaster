@@ -1,11 +1,13 @@
-﻿namespace DungeonMaster.Models.MapObjects;
-
-public enum MapObjectType
+﻿namespace DungeonMaster.Models.MapObjects
 {
-    Unknown,
-    Wall,
-    Floor,
-    MapPointA,
-    MapPointB,
-    MapTmpObj,
+    public enum MapObjectType
+    {
+        Unknown,
+        Wall,
+        Floor,
+        MapPointA,
+        MapPointB,
+        MapTmpObj,
+    }
 }
+
