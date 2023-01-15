@@ -22,18 +22,6 @@ namespace DungeonMaster.Models
                     _currentDrawmap[x, y] = MapObjectType.Floor;
                 }
             }
-
-            // for (int x = 0; x < Size.x; x++)
-            // {
-            //     _currentDrawmap[x, 0] = MapObjectType.Wall;
-            //     _currentDrawmap[x, Size.y - 1] = MapObjectType.Wall;
-            // }
-            //
-            // for (int y = 0; y < Size.y; y++)
-            // {
-            //     _currentDrawmap[0, y] = MapObjectType.Wall;
-            //     _currentDrawmap[Size.x - 1, y] = MapObjectType.Wall;
-            // }
         }
 
         public override string ToString()

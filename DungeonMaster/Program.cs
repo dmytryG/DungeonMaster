@@ -20,7 +20,7 @@ namespace DungeonMaster
             if(configuration.DebugLog)
                 Console.WriteLine("Started room generator...");
             
-            List<DungeonObject> rooms = RoomListFactory.GetRoomsSet(configuration);
+            List<DungeonObject> rooms = RoundRoomListFactory.GetRoomsSet(configuration);
             
             if(configuration.DebugLog)
                 Console.WriteLine("Started room collector...");
@@ -30,7 +30,7 @@ namespace DungeonMaster
             if(configuration.DebugLog)
                 Console.WriteLine("Started path generator...");
             
-            List<DungeonObject> paths = PathsListFactory.GetPathsSet(configuration, rooms);
+            List<DungeonObject> paths = DirectPathsListFactory.GetPathsSet(configuration, rooms);
             
             if(configuration.DebugLog)
                 Console.WriteLine("Applying paths to the map...");
